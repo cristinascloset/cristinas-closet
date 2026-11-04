@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>questions — cristina's closet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <aside class="side" id="side"></aside>
+
+    <main class="prose">
+      <h1 class="script">questions</h1>
+      <div class="faq" id="faq"></div>
+      <p class="ask">still wondering? <a class="u" id="askLink" href="#">ask me directly</a></p>
+    </main>
+  </div>
+
+  <script src="site.js"></script>
+  <script>
+    renderSide("questions");
+    const Q = [
+      ["how do i wear No. 01?",
+       "four ways: tie it in your hair as a headband, knot it at your neck as a scarf, wrap it across your body as a sash, or thread it through your belt loops. one piece, a whole wardrobe of looks."],
+      ["why are there only 2?",
+       "every piece is cut and sewn by hand at home, and the silk is sourced locally in small amounts. i'd rather make two perfect pieces than rush twenty. when they're gone, No. 01 is retired for good."],
+      ["what is it made of?",
+       "100% silk, sourced locally in new hampshire. <span class='todo'>add the silk type and weight, e.g. 19 momme charmeuse</span>"],
+      ["how big is it?",
+       "<span class='todo'>add length × width, and which ways it fits best</span>"],
+      ["how do i care for it?",
+       "<span class='todo'>add care instructions, e.g. hand wash cold, lay flat to dry, cool iron</span>"],
+      ["when does it ship?",
+       "<span class='todo'>add how long it takes to ship and where you ship to</span>"],
+      ["can i return it?",
+       "<span class='todo'>add your return policy</span>"],
+      ["will there be more?",
+       "yes, but never more of No. 01. No. 02 is in the works for 2027. follow along on instagram to hear first."],
+    ];
+    document.getElementById("faq").innerHTML = Q.map(([q, a], i) =>
+      `<details ${i === 0 ? "open" : ""}><summary>${q}</summary><p>${a}</p></details>`).join("");
+    document.getElementById("askLink").href = SITE.email ? `mailto:${SITE.email}` : SITE.instagram;
+  </script>
+</body>
+</html>

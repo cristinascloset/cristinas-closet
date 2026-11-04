@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>No. 01 — cristina's closet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <aside class="side" id="side"></aside>
+
+    <main class="product">
+      <section class="buy" id="buy"></section>
+      <section class="rail" id="rail"></section>
+    </main>
+  </div>
+
+  <script src="site.js"></script>
+  <script>
+    renderSide("products");
+    const P = PRODUCT, sold = P.remaining <= 0;
+
+    const dots = Array.from({ length: P.edition }, (_, i) =>
+      `<span class="dot ${i < P.edition - P.remaining ? "gone" : ""}"></span>`).join("");
+
+    document.getElementById("buy").innerHTML = `
+      <h1 class="pname">${P.name}</h1>
+      <p class="pline">"${P.line}"</p>
+      <p class="pline">headband · scarf · sash · belt</p>
+      <p class="price">$${P.price}</p>
+      <div class="edition"><div class="dots">${dots}</div>${editionLine()}</div>
+      ${sold
+        ? `<a class="claim off" href="${SITE.instagram}" target="_blank" rel="noopener">sold out — follow for No. 02</a>`
+        : `<a class="claim" href="${claimHref()}" target="_blank" rel="noopener">claim yours</a>`}
+      <p class="note">only ${P.edition} will ever exist. each one is numbered, signed, and the pattern is retired once they're gone.</p>
+      <dl class="details">${P.details.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
+
+    const rail = document.getElementById("rail");
+    rail.innerHTML = P.ways.map((w, i) => `
+      <figure class="item" style="animation-delay:${i * 80}ms">
+        ${photo(w)}
+        <figcaption><span class="name">"${w.label}"</span><br><span class="num">0${i + 1} / 04</span></figcaption>
+      </figure>`).join("") + `
+      <figure class="item next" style="animation-delay:320ms">
+        ${photo({ img: "images/no02.jpg", tone: ["#2a0809", "#6e2a24"] })}
+        <figcaption><span class="name">"No. 02"</span><br><span class="num">coming 2027</span></figcaption>
+      </figure>`;
+
+    // vertical wheel → horizontal scroll on desktop
+    rail.addEventListener("wheel", e => {
+      if (innerWidth <= 900 || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      e.preventDefault(); rail.scrollLeft += e.deltaY;
+    }, { passive: false });
+  </script>
+</body>
+</html>

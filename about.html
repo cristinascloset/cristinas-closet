@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>about — cristina's closet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <aside class="side" id="side"></aside>
+
+    <main class="prose">
+      <h1 class="script">made slowly</h1>
+
+      <div class="cols">
+        <div id="studio"></div>
+        <div class="text">
+          <p>cristina's closet is a one-woman studio in new hampshire. every piece starts as a design i draw myself, in fabric i find locally, and gets cut and sewn by hand in my home.</p>
+          <p>i make very few of anything. not as a trick — that's just how long it takes to do it properly. when an edition is gone, i retire it and start the next one.</p>
+          <p>i'd rather you own one thing that lasts twenty years than twenty things that last one. quality should stand the test of time, so that's the only standard here.</p>
+          <p class="todo">add a line or two in your own words: how you started sewing, or what your town is like.</p>
+          <p class="sign">— cristina</p>
+        </div>
+      </div>
+
+      <ul class="pillars">
+        <li><span class="n">01</span>my own designs<br><span class="sub">drawn at the kitchen table, never copied</span></li>
+        <li><span class="n">02</span>local fabric<br><span class="sub">sourced here in new hampshire</span></li>
+        <li><span class="n">03</span>made at home<br><span class="sub">cut &amp; sewn by one pair of hands</span></li>
+        <li><span class="n">04</span>built to last<br><span class="sub">made to be passed down</span></li>
+      </ul>
+    </main>
+  </div>
+
+  <script src="site.js"></script>
+  <script>
+    renderSide("about");
+    document.getElementById("studio").innerHTML = photo({ img: "images/cristina.jpg", tag: "cristina in the studio", tone: ["#2b1a14", "#8a6a54"] }, "portrait");
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cristina's closet</title>
+  <meta name="description" content="handmade silk in new hampshire. No. 01 — one silk, four ways. edition of 2.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="landing">
+    <div class="collage" id="collage"></div>
+
+    <div class="corner tl">handmade</div>
+    <div class="corner tc">in</div>
+    <div class="corner tr">new hampshire</div>
+
+    <h1 class="logo" aria-label="cristina's closet"><span>cristina's</span><span>closet</span></h1>
+
+    <nav class="list" id="nav"></nav>
+
+    <div class="info">
+      <a class="u" href="products.html">No. 01 — silk</a><br>
+      one silk, four ways<br>
+      <span id="edition"></span><br>
+      <a class="u" href="products.html">claim yours</a>
+    </div>
+
+    <p class="fine">
+      designed, sourced &amp; sewn by hand — never remade<br>
+      © 2026 cristina's closet. all rights reserved.
+    </p>
+  </main>
+
+  <script src="site.js"></script>
+  <script>
+    // [left %, top %, width vw, aspect h/w]
+    const spots = [
+      [8,5,10,1.35],[2,22,5,2.4],[18,18,9,1.25],[25,17,9,1.3],[41,7,11,0.8],[55,12,8,1.5],
+      [65,17,6,1.3],[74,2,10,1.3],[88,7,9,1.15],[69,38,10,1.2],[81,34,10,1.35],[90,50,9,1.3],
+      [1,48,9,1.45],[12,46,9,1.05],[29,52,8,1.2],[13,69,10,1.15],[22,63,8,1.3],[45,64,10,1.4],
+      [58,59,9,1.25],[70,66,9,1.35],[85,77,10,1.15],[84,62,4,1.6]
+    ];
+    const phone = innerWidth <= 720 ? 2 : 1; // bigger tiles on phones
+    document.getElementById("collage").innerHTML = spots.map(([l,t,w,r], i) => {
+      const p = TILES[i % TILES.length]; w *= phone;
+      const vars = `--dur:${11 + (i % 5) * 2}s;--delay:-${i * 1.3}s;--dx:${(i%3-1)*8}px;--dy:${(i%2?1:-1)*10}px;`;
+      return `<a class="tile" href="products.html" style="left:${l}vw;top:${t}vh;width:${w}vw;height:${w*r}vw;${vars}">
+                ${photo(p)}<span class="tag">${p.tag}</span>
+              </a>`;
+    }).join("");
+
+    document.getElementById("nav").innerHTML = NAV.slice(1).map(([n, h]) => `<a href="${h}">${n}</a>`).join("<br>");
+    document.getElementById("edition").textContent = editionLine();
+  </script>
+</body>
+</html>

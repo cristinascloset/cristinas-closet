@@ -1,0 +1,193 @@
+:root {
+  --bg: #E9C9CB;                          /* muted baby pink */
+  --ink: #4D0E12;                         /* oxblood */
+  --ink-soft: rgba(77, 14, 18, 0.68);
+  --line: rgba(77, 14, 18, 0.22);
+  --script: "Mrs Saint Delafield", cursive;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; transition: opacity .2s; }
+a:hover { opacity: 0.65; }
+.u { text-decoration: underline; text-underline-offset: 3px; }
+::selection { background: var(--ink); color: var(--bg); }
+
+/* things cristina still needs to fill in */
+.todo { background: rgba(77, 14, 18, 0.08); outline: 1px dashed var(--ink-soft); padding: 0 4px; font-style: italic; }
+
+.photo { position: relative; overflow: hidden; }
+.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ═════════════ LANDING ═════════════ */
+.landing { position: fixed; inset: 0; overflow: hidden; }
+.collage { position: absolute; inset: 0; }
+.tile {
+  position: absolute;
+  filter: blur(14px);
+  opacity: 0.9;
+  transition: filter .6s ease, opacity .6s ease;
+  animation: drift var(--dur, 14s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+}
+.tile .photo { width: 100%; height: 100%; }
+.tile:hover { filter: blur(0); opacity: 1; z-index: 5; }
+.tile .tag {
+  position: absolute; left: 0; top: calc(100% + 8px);
+  font-size: 13px; font-style: italic; white-space: nowrap;
+  opacity: 0; transition: opacity .4s;
+}
+.tile:hover .tag { opacity: 1; }
+@keyframes drift { to { transform: translate(var(--dx, 6px), var(--dy, -10px)); } }
+
+.corner { position: absolute; top: 22px; font-size: 19px; z-index: 10; }
+.corner.tl { left: 20px; }
+.corner.tc { left: 50%; transform: translateX(-50%); }
+.corner.tr { right: 22px; }
+
+.logo {
+  position: absolute; left: 50%; top: 48%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+  font-family: var(--script); font-weight: 400;
+  font-size: clamp(110px, 16vw, 260px);
+  line-height: 0.62; text-align: center; white-space: nowrap;
+  pointer-events: none; z-index: 10;
+  text-shadow: 0 0 40px rgba(233, 201, 203, 0.8);
+}
+.logo span { display: block; }
+.logo span + span { margin-left: 0.9em; }
+
+.list { position: absolute; left: 32px; bottom: 32px; z-index: 10; font-size: 19px; line-height: 1.6; }
+.info { position: absolute; right: 54px; bottom: 34px; z-index: 10; font-size: 19px; line-height: 1.5; text-align: right; }
+.fine {
+  position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%);
+  font-size: 14px; line-height: 1.6; text-align: center; z-index: 10; white-space: nowrap;
+  color: var(--ink-soft);
+}
+
+/* ═════════════ INNER PAGES ═════════════ */
+.page { display: flex; min-height: 100vh; }
+
+.side {
+  flex: 0 0 240px;
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column;
+  padding: 26px 32px 30px;
+}
+.side .mark {
+  font-family: var(--script); font-size: 64px; line-height: 0.72;
+  display: inline-block; transform: rotate(-6deg); transform-origin: left;
+  margin: 14px 0 50px;
+}
+.side nav { display: flex; flex-direction: column; gap: 6px; font-size: 17px; }
+.side nav a { opacity: 0.6; }
+.side nav a.on { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+.side .spacer { flex: 1; }
+.side .foot { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+/* ── products ── */
+.product { flex: 1; display: flex; height: 100vh; min-width: 0; }
+
+.buy {
+  flex: 0 0 320px; padding: 120px 30px 40px 10px;
+  overflow-y: auto; scrollbar-width: none;
+}
+.pname { font-family: var(--script); font-weight: 400; font-size: 96px; line-height: 0.8; margin-bottom: 18px; }
+.pline { font-size: 17px; font-style: italic; line-height: 1.5; }
+.price { font-size: 22px; margin: 22px 0 10px; }
+.edition { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.dots { display: flex; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
+.dot.gone { background: transparent; border: 1px solid var(--ink-soft); }
+.claim {
+  display: block; text-align: center; margin: 26px 0 14px;
+  padding: 15px 0; border: 1px solid var(--ink);
+  font-size: 15px; letter-spacing: 0.08em;
+  transition: background .25s, color .25s;
+}
+.claim:hover { background: var(--ink); color: var(--bg); opacity: 1; }
+.claim.off { border-color: var(--ink-soft); color: var(--ink-soft); }
+.note { font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+.details { margin-top: 30px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.5; }
+.details dt { padding-top: 12px; color: var(--ink-soft); }
+.details dd { padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+
+.rail {
+  flex: 1; min-width: 0;
+  display: flex; align-items: center; gap: 40px;
+  overflow-x: auto; overflow-y: hidden;
+  padding: 0 100px 0 40px;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar { display: none; }
+.item { flex: 0 0 auto; width: clamp(240px, 24vw, 440px); animation: rise .7s ease both; }
+.item .photo { aspect-ratio: 2 / 3; }
+.item figcaption { margin-top: 16px; font-size: 17px; line-height: 1.6; }
+.item .name { font-style: italic; }
+.item .num { font-size: 13px; color: var(--ink-soft); }
+.item.next .photo { filter: blur(10px); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ── about + questions ── */
+.prose { flex: 1; max-width: 1000px; padding: 90px 60px 90px 20px; }
+.script { font-family: var(--script); font-weight: 400; font-size: clamp(80px, 9vw, 140px); line-height: 0.8; transform: rotate(-4deg); transform-origin: left; margin-bottom: 60px; }
+
+.cols { display: grid; grid-template-columns: minmax(200px, 340px) 1fr; gap: 50px; align-items: start; }
+.portrait { aspect-ratio: 3 / 4; }
+.text p { font-size: 18px; line-height: 1.65; margin-bottom: 20px; max-width: 520px; }
+.sign { font-style: italic; }
+
+.pillars { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 80px; border-top: 1px solid var(--line); padding-top: 24px; font-size: 16px; line-height: 1.5; }
+.pillars .n { display: block; font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; }
+.pillars .sub { font-size: 13px; color: var(--ink-soft); font-style: italic; }
+
+.faq { max-width: 640px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 18px 0; font-size: 18px; display: flex; justify-content: space-between; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding: 0 0 22px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); max-width: 560px; }
+.ask { margin-top: 40px; font-size: 16px; font-style: italic; }
+
+/* ═════════════ TABLET / PHONE ═════════════ */
+@media (max-width: 900px) {
+  .page { flex-direction: column; }
+  .side { position: static; height: auto; flex: none; padding: 18px 16px 0; }
+  .side .mark { font-size: 52px; margin: 8px 0 20px; }
+  .side nav { flex-direction: row; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; }
+  .side .spacer, .side .foot { display: none; }
+
+  .product { flex-direction: column; height: auto; }
+  .buy { flex: none; padding: 30px 16px 10px; overflow: visible; }
+  .pname { font-size: 80px; }
+  .rail { overflow-x: auto; padding: 20px 16px 50px; gap: 16px; align-items: flex-start; scroll-snap-type: x mandatory; }
+  .item { width: 78vw; scroll-snap-align: start; }
+
+  .prose { padding: 40px 16px 60px; }
+  .script { margin-bottom: 36px; }
+  .cols { grid-template-columns: 1fr; gap: 28px; }
+  .text p { font-size: 16px; }
+  .pillars { grid-template-columns: 1fr 1fr; margin-top: 50px; }
+}
+
+@media (max-width: 720px) {
+  .corner { font-size: 14px; }
+  .corner.tl { left: 16px; } .corner.tr { right: 16px; }
+  .logo { top: 40%; }
+  .list { left: 16px; bottom: 90px; font-size: 15px; }
+  .info { right: 16px; bottom: 90px; font-size: 15px; }
+  .fine { bottom: 20px; font-size: 11px; white-space: normal; width: calc(100% - 32px); }
+}
+
+@media (prefers-reduced-motion: reduce) { .tile, .item { animation: none; } }
